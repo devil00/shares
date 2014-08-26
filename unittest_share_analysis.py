@@ -30,20 +30,19 @@ class TestShareAnalysis(unittest.TestCase):
             share_headers.append(company)
             test_data[company] = {'price': 0, 'year': 0, 'month': 0}
         with open(self.test_file, "wb") as data_file:
-            share_writer = csv.writer(data_file, quotechar='|',
-                                      quoting=csv.QUOTE_MINIMAL)
+            share_writer = csv.writer(data_file)
             share_writer.writerow(share_headers)
             for year in range(start_year, end_year+1):
                 for month in [calendar.month_abbr[i] for i in range(1, 13)]:
                     data_row = [year, month]
                     for company in share_headers[2:]:
                         share_value = random.randint(100, 1000)
+                        data_row.append(share_value)
                         # Make sure to store max share price for every company
                         if share_value > test_data[company]['price']:
                             test_data[company].update(
                                 {'price': share_value, 'year': year,
                                  'month': month})
-                            data_row.append(share_value)
                     share_writer.writerow(data_row)
 
             return test_data
