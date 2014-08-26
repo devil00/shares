@@ -47,29 +47,29 @@ class TestShareAnalysis(unittest.TestCase):
 
             return test_data
 
-        def test_share_file_extension(self):
-            """
-            Test whether share file is csv file or not. If csv then it should
-            be available .
-            """
-            self.assertEqual(self.share_analysis._is_valid_share_file(), True)
+    def test_share_file_extension(self):
+        """
+        Test whether share file is csv file or not. If csv then it should
+        be available .
+        """
+        self.assertEqual(self.share_analysis._is_valid_share_file(), True)
 
-        def test_data_validity(self):
-            """
-            Test if result obtained matches exactly with data available from
-            csv file.
-            """
-            result = self.share_analysis.execute()
-            result = result.split("\n")[3:]
-            for com_info in result:
-                if com_info:
-                    company, year, month, price = com_info.split("\t")
-                    self.assertEqual(str(year),
-                                     str(self.test_data[company]['year']))
-                    self.assertEqual(str(month),
-                                     str(self.test_data[company]['month']))
-                    self.assertEqual(str(price),
-                                     str(self.test_data[company]['price']))
+    def test_data_validity(self):
+        """
+        Test if result obtained matches exactly with data available from
+        csv file.
+        """
+        result = self.share_analysis.execute()
+        result = result.split("\n")[3:]
+        for com_info in result:
+            if com_info:
+                company, year, month, price = com_info.split("\t")
+                self.assertEqual(str(year),
+                                 str(self.test_data[company]['year']))
+                self.assertEqual(str(month),
+                                 str(self.test_data[company]['month']))
+                self.assertEqual(str(price),
+                                 str(self.test_data[company]['price']))
 
     def test_all_companies_listing(self):
         """
